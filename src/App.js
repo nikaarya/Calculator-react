@@ -17,9 +17,12 @@ function reducer(state, { type, payload }) {
       if (payload.digit === "0" && state.currentOperand === "0") {
         return state;
       }
+      if (payload.digit === "." && state.currentOperand.includes(".")) {
+        return state;
+      }
       return {
         ...state,
-        currentOperand: `${state.currentOperand}${payload.digit}`,
+        currentOperand: `${state.currentOperand || ""}${payload.digit}`,
       };
   }
 }
@@ -38,7 +41,7 @@ function App() {
         <div className="previous-operand">
           {previousOperand} {operation}
         </div>
-        <div className="current-operand"> {currentOperand}</div>
+        <div className="current-operand">{currentOperand}</div>
       </div>
       <button className="span-two">AC</button>
       <button>DEL</button>
